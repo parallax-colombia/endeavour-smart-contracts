@@ -1,18 +1,22 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.13;
 
-import {Test, console} from "forge-std/Test.sol";
+import {Script, console} from "forge-std/Script.sol";
 import {IDOFactory} from "../src/IDOFactory.sol";
 
-contract IDOFactoryTest is Test {
+contract IDOFactoryScript is Script {
     IDOFactory public idoFactory;
 
-    function setUp() public {
+    function setUp() public {}
+
+    function run() public {
         uint256 deployerPrivateKey = vm.envUint("PRIVATE_KEY");
         address initialOwner = vm.envAddress("INITIAL_OWNER");
         
-        idoFactory = new IDOFactory(initialOwner);
-  
-    }
+        vm.startBroadcast(deployerPrivateKey);
 
+        idoFactory = new IDOFactory(initialOwner);
+
+        vm.stopBroadcast();
+    }
 }
